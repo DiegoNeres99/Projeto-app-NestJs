@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post,} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 
 @Controller("tasks")
 export class TasksController {
-    constructor(private readonly tasksService: TasksService) {}
+    constructor(private readonly tasksService: TasksService) { }
 
     @Get("")
     findAllTasks() {
@@ -17,11 +17,25 @@ export class TasksController {
         return this.tasksService.findOneTask(id);
     }
 
-    @Post("")
+    @Post()
     createTask(@Body() body: any) {
         console.log(body);
         return this.tasksService.create(body);
-        
     }
+
+    @Patch(":id")
+    updateTask(@Param("id") id: string, @Body() body: any) {
+        console.log("ID", id);
+        console.log("Body", body);
+        return "Atualizando uma tarefa";
+    }
+
+    @Delete(":id")
+    deleteTask(@Param("id") id: string) {
+        console.log("ID ENVIADO: " + id);
+        
+        return "Deletando uma tarefa " + id;
+    }
+
 
 }
