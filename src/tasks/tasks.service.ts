@@ -1,20 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { tasks } from './entities/task.entity';
 
 @Injectable()
 export class TasksService {
 
+    private tasks: tasks[] = [
+        {
+            id: 1,
+            name: "Diego Neres Miotta",
+            description: "Estudar NestJS",
+            completed: false
+        }
+    ]
+
     listAllTasks() {
-        return [
-            { id: 1, tasks: "Comprar pao" },
-        ]
+        return this.tasks;
     }
 
     findOneTask(id: string) {
-        return "Buscar tarefa com ID " + id;
+        return this.tasks.find(task => task.id === Number(id))
     }
 
     create(body: any) {
-        console.log("Tarefa criada com sucesso!");
+        const newid = this.tasks.length + 1;
+
+        const newTask = {
+            id: newid,
+            ...body
+        }
+
+        this.tasks.push(newTask)
+
         return body;
     }
 }

@@ -12,7 +12,7 @@ export class AppController {
 
   @Get("/teste")
   getTeste() {
-    return "Teste de api";
+    return "Rota teste de api";
   }
 
   @Post("/teste")
